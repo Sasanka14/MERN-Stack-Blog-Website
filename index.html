@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SasankaWrites | Blog — Coming Soon</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
+
+    <style>
+      /* =====================
+       THEME VARIABLES
+    ====================== */
+
+      :root {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #020617;
+        --muted: #475569;
+        --accent: #0284c7;
+      }
+
+      [data-theme="dark"] {
+        --bg: #0f172a;
+        --card: #020617;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --accent: #38bdf8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+
+      body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--card), var(--bg));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+      }
+
+      .container {
+        position: relative;
+        text-align: center;
+        padding: 2.5rem;
+        max-width: 420px;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        animation: fadeUp 1s ease forwards;
+      }
+
+      [data-theme="dark"] .container {
+        background: rgba(2, 6, 23, 0.7);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.4rem 0.75rem;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.15);
+        color: var(--accent);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .footer {
+        margin-top: 2rem;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      /* =====================
+       THEME TOGGLE
+    ====================== */
+
+      .theme-toggle {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: var(--muted);
+      }
+
+      .theme-toggle:hover {
+        color: var(--accent);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        🌙
+      </button>
+
+      <div class="badge">Coming Soon</div>
+      <h1>Blog in Progress</h1>
+      <p>
+        A thoughtful space is being built — focused on clarity, learning, and
+        ideas that compound over time. The writing begins soon.
+      </p>
+
+      <div class="footer">© <span id="year"></span> • All rights reserved</div>
+    </div>
+
+    <script>
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+
+      const savedTheme = localStorage.getItem("theme");
+      const systemPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      if (savedTheme) {
+        root.setAttribute("data-theme", savedTheme);
+      } else if (systemPrefersDark) {
+        root.setAttribute("data-theme", "dark");
+      }
+
+      updateIcon();
+
+      toggle.addEventListener("click", () => {
+        const isDark = root.getAttribute("data-theme") === "dark";
+        root.setAttribute("data-theme", isDark ? "light" : "dark");
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+        updateIcon();
+      });
+
+      function updateIcon() {
+        toggle.textContent =
+          root.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+      }
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
